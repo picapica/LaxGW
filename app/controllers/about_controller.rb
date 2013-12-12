@@ -1,19 +1,19 @@
-class WelcomeController < UIViewController
-  
+class AboutController < UIViewController
+
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("欢迎", image: nil, tag: 1)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("关于", image: nil, tag: 1)
     self
   end
 
   def viewDidLoad
     super
 
-    self.title = "首页"
+    self.title = "关于"
     self.view.backgroundColor = UIColor.whiteColor
-    
+
     @label = UILabel.alloc.initWithFrame(CGRectZero)
-    @label.text = "欢迎使用"
+    @label.text = "版本：3.0"
     @label.sizeToFit
     @label.center = [self.view.frame.size.width / 2, self.view.frame.size.height / 2]
     @label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
