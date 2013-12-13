@@ -18,6 +18,14 @@ class WelcomeController < UIViewController
     @label.center = [self.view.frame.size.width / 2, self.view.frame.size.height / 2]
     @label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
     self.view.addSubview(@label)
+
+    @defaults = NSUserDefaults.standardUserDefaults
+    @login_info = UILabel.alloc.initWithFrame(CGRectZero)
+    @login_info.text = "账号名：%s" % [@defaults[:login_name] || '未设置']
+    @login_info.sizeToFit
+    @login_info.center = [self.view.frame.size.width / 2, self.view.frame.size.height / 2 + 30]
+    @login_info.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
+    self.view.addSubview(@login_info)
   end
 
 end
