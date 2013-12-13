@@ -14,4 +14,5 @@ Motion::Project::App.setup do |app|
   app.name = 'BNUGW'
   app.identifier = "com.liulantao.BNUGW"
   app.deployment_target = "5.0"
+  app.vendor_project('vendor/NetInterface', :static)
 end
