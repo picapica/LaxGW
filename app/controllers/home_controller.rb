@@ -77,14 +77,16 @@ class HomeController < UIViewController
         defaults = NSUserDefaults.standardUserDefaults
 
         GW.login(defaults[:login_name], defaults[:login_password])
+        updateTableInfo()
 
       when :disconnect
         defaults = NSUserDefaults.standardUserDefaults
 
         GW.logout(defaults[:login_name], defaults[:login_password])
+        updateTableInfo()
 
       else
-        puts "-%s-" % [op]
+        #puts "-%s-" % [op]
       end
     end
   end
@@ -100,7 +102,9 @@ class HomeController < UIViewController
 
     ifinfo = NetInterface.getInterfaceList
     ifinfo.each do |k, v|
-      data << @kvfmt % [k, v]
+      if k =~ /^en/
+        data << @kvfmt % [k.gsub(/^en/, '无线'), v]
+      end
     end
 
     data << @ops[:connect]
@@ -110,16 +114,16 @@ class HomeController < UIViewController
     @table.reloadData
 
     conn_info = nil
-    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i]) do |response|
+    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3}) do |response|
       conn_info = response
 
       data << ""
 
       if conn_info and conn_info.body
-        data << @kvfmt % ["外网", conn_info.body.to_str.strip]
+        data << @kvfmt % ["外网地址", conn_info.body.to_str.strip]
       else
-        data << @kvfmt % ["外网", "-"]
-        data << response.error_message
+        data << @kvfmt % ["外网", "无外网IP"]
+        #data << response.error_message
       end
       data << Time.now.to_s
 
