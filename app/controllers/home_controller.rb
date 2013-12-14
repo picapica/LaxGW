@@ -11,7 +11,7 @@ class HomeController < UIViewController
   def viewDidLoad
     super
 
-    @kvfmt = " %-10s\t%20s"
+    @kvfmt = "%-10s\t%20s"
     @ops = {
       :check => "检测",
       :connect => "登入网关",
@@ -56,7 +56,11 @@ class HomeController < UIViewController
       reuseIdentifier:@reuseIdentifier
     )
     cell.textLabel.text = @data[indexPath.row]
-    cell.textLabel.textAlignment = UITextAlignmentCenter if @ops.values.include?(@data[indexPath.row]);
+    cell.textLabel.textAlignment = UITextAlignmentCenter if @ops.values.include?(@data[indexPath.row])
+    if @data[indexPath.row] == "已连接"
+      cell.textLabel.textColor = UIColor.blueColor
+      cell.textLabel.textAlignment = UITextAlignmentCenter
+    end
 
     cell
   end
@@ -77,12 +81,14 @@ class HomeController < UIViewController
         defaults = NSUserDefaults.standardUserDefaults
 
         GW.login(defaults[:login_name], defaults[:login_password])
+        sleep(1)
         updateTableInfo()
 
       when :disconnect
         defaults = NSUserDefaults.standardUserDefaults
 
         GW.logout(defaults[:login_name], defaults[:login_password])
+        sleep(3)
         updateTableInfo()
 
       else
@@ -120,9 +126,10 @@ class HomeController < UIViewController
       data << ""
 
       if conn_info and conn_info.body
+        data << "已连接"
         data << @kvfmt % ["外网地址", conn_info.body.to_str.strip]
       else
-        data << @kvfmt % ["外网", "无外网IP"]
+        data << "无外网IP"
         #data << response.error_message
       end
       data << Time.now.to_s

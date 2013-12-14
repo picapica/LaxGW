@@ -10,6 +10,12 @@ class SettingController < UIViewController
   def viewDidLoad
     super
 
+    dict = {
+      "save" => "保存",
+      "reload" => "恢复",
+      "clear" => "清空"
+    }
+
     self.view.backgroundColor = UIColor.whiteColor
 
     @defaults = NSUserDefaults.standardUserDefaults
@@ -41,11 +47,11 @@ class SettingController < UIViewController
       button_width = (self.view.frame.size.width - 80) / 3
 
       button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-      button.setTitle(action_text, forState:UIControlStateNormal)
+      button.setTitle(dict[action_text], forState:UIControlStateNormal)
       button.setTitleColor(color, forState:UIControlStateNormal)
       button.sizeToFit
       button.frame = [
-        [20 + index*(button_width + 10), @label_setting.frame.origin.y + button.frame.size.height + 30 * 3],
+        [20 + index*(button_width + 10), @password_field.frame.origin.y + button.frame.size.height + 30 * 3],
         [button_width, button.frame.size.height]
       ]
       button.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
