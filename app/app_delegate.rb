@@ -1,10 +1,8 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.makeKeyAndVisible
 
-    welcome_controller = WelcomeController.alloc.initWithNibName(nil, bundle: nil)
-    conn_nav_controller = UINavigationController.alloc.initWithRootViewController(welcome_controller)
+    home_controller = HomeController.alloc.initWithNibName(nil, bundle: nil)
+    home_nav_controller = UINavigationController.alloc.initWithRootViewController(home_controller)
 
     about_controller = AboutController.alloc.initWithNibName(nil, bundle: nil)
     about_nav_controller = UINavigationController.alloc.initWithRootViewController(about_controller)
@@ -13,8 +11,10 @@ class AppDelegate
     setting_nav_controller = UINavigationController.alloc.initWithRootViewController(setting_controller)
 
     tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle:nil)
-    tab_controller.viewControllers = [conn_nav_controller, setting_nav_controller, about_nav_controller]
+    tab_controller.viewControllers = [home_nav_controller, setting_nav_controller, about_nav_controller]
 
+    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
+    @window.makeKeyAndVisible
     @window.rootViewController = tab_controller
 
     true
