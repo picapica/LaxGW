@@ -45,7 +45,7 @@ class SettingController < UIViewController
       button.setTitleColor(color, forState:UIControlStateNormal)
       button.sizeToFit
       button.frame = [
-        [20 + index*(button_width + 10), @label_setting.frame.origin.y + button.frame.size.height + 30 * 2],
+        [20 + index*(button_width + 10), @label_setting.frame.origin.y + button.frame.size.height + 30 * 3],
         [button_width, button.frame.size.height]
       ]
       button.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
@@ -60,18 +60,21 @@ class SettingController < UIViewController
     @defaults[:login_name] = username if username
     @defaults[:login_password] = password if password
     @name_field.resignFirstResponder
+    @password_field.resignFirstResponder
   end
 
   def tap_reload
     @name_field.text = @defaults[:login_name] || nil
     @password_field.text = @defaults[:login_password] || nil
     @name_field.resignFirstResponder
+    @password_field.resignFirstResponder
   end
 
   def tap_clear
     @name_field.text = nil
     @password_field.text = nil
     @name_field.resignFirstResponder
+    @password_field.resignFirstResponder
   end
 
 end

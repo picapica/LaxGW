@@ -11,15 +11,24 @@ class HomeController < UIViewController
   def viewDidLoad
     super
 
-    @kvfmt = "%-10s\t%20s"
-    @reload_text = "Reload"
+    @kvfmt = " %-10s\t%20s"
+    @ops = {
+      :check => "检测",
+      :connect => "登入网关",
+      :disconnect => "退出网关"
+    }
+    @ops_r = @ops.invert
 
     self.view.backgroundColor = UIColor.whiteColor
+
+    @right_button = UIBarButtonItem.alloc.initWithTitle(@ops[:check], style: UIBarButtonItemStyleBordered, target:self, action:'updateTableInfo')
+    self.navigationItem.rightBarButtonItem = @right_button
 
     @table = UITableView.alloc.initWithFrame(self.view.bounds, style:UITableViewStyleGrouped)
     @table.autoresizingMask = UIViewAutoresizingFlexibleHeight
     self.view.addSubview(@table)
     @table.dataSource = self
+    @table.delegate = self
 
     @data = []
     defaults = NSUserDefaults.standardUserDefaults
@@ -31,9 +40,10 @@ class HomeController < UIViewController
   def viewDidAppear(animated)
     super
 
-    updateTableInfo(@table)
+    updateTableInfo()
   end
 
+  # DataSource
   def tableView(tableView, numberOfRowsInSection: section)
     @data.count
   end
@@ -46,12 +56,41 @@ class HomeController < UIViewController
       reuseIdentifier:@reuseIdentifier
     )
     cell.textLabel.text = @data[indexPath.row]
-    cell.textLabel.textAlignment = UITextAlignmentCenter if @data[indexPath.row] == @reload_text;
+    cell.textLabel.textAlignment = UITextAlignmentCenter if @ops.values.include?(@data[indexPath.row]);
 
     cell
   end
+  # end DataSource
 
-  def updateTableInfo(table)
+  # Delegate
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+    btnText = @data[indexPath.row]
+    if @ops.has_value?(btnText)
+      op = @ops_r[btnText]
+      case op
+      when :check
+        updateTableInfo()
+
+      when :connect
+        defaults = NSUserDefaults.standardUserDefaults
+
+        GW.login(defaults[:login_name], defaults[:login_password])
+
+      when :disconnect
+        defaults = NSUserDefaults.standardUserDefaults
+
+        GW.logout(defaults[:login_name], defaults[:login_password])
+
+      else
+        puts "-%s-" % [op]
+      end
+    end
+  end
+  # end Delegate
+
+  def updateTableInfo()
     data = []
 
     defaults = NSUserDefaults.standardUserDefaults
@@ -64,23 +103,28 @@ class HomeController < UIViewController
       data << @kvfmt % [k, v]
     end
 
+    data << @ops[:connect]
+    data << @ops[:disconnect]
+
     @data = data
-    table.reloadData
+    @table.reloadData
 
     conn_info = nil
     BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i]) do |response|
       conn_info = response
 
-      if conn_info and conn_info.body
-        data << @kvfmt % ["PublicIP", conn_info.body.to_str.strip]
-      else
-        data << @kvfmt % ["PublicIP", "-"]
-      end
+      data << ""
 
-      data << @reload_text
+      if conn_info and conn_info.body
+        data << @kvfmt % ["外网", conn_info.body.to_str.strip]
+      else
+        data << @kvfmt % ["外网", "-"]
+        data << response.error_message
+      end
+      data << Time.now.to_s
 
       @data = data
-      table.reloadData
+      @table.reloadData
     end
   end
 end
