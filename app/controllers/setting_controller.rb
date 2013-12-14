@@ -2,14 +2,14 @@ class SettingController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("设置", image: nil, tag: 1)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("Setting", image: nil, tag: 0)
+    self.title = "设置"
     self
   end
 
   def viewDidLoad
     super
 
-    self.title = "设置"
     self.view.backgroundColor = UIColor.whiteColor
 
     @defaults = NSUserDefaults.standardUserDefaults

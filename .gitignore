@@ -14,3 +14,7 @@ nbproject
 .eprj
 .sass-cache
 .idea
+vendor/**/*.m.o
+vendor/**/*.pch
+vendor/**/*.a
+vendor/**/*.bridgesupport

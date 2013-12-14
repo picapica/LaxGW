@@ -2,14 +2,14 @@ class AboutController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("关于", image: nil, tag: 1)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("About", image: nil, tag: 0)
+    self.title = "关于"
     self
   end
 
   def viewDidLoad
     super
 
-    self.title = "关于"
     self.view.backgroundColor = UIColor.whiteColor
 
     @label = UILabel.alloc.initWithFrame(CGRectZero)

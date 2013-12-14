@@ -12,6 +12,8 @@ end
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'BNUGW'
+  app.version = 'v3-20131213'
   app.identifier = "com.liulantao.BNUGW"
   app.deployment_target = "5.0"
+  app.vendor_project('vendor/NetInterface', :static)
 end
