@@ -13,7 +13,7 @@ class AboutController < UIViewController
     self.view.backgroundColor = UIColor.whiteColor
 
     @label = UILabel.alloc.initWithFrame(CGRectZero)
-    @label.text = "版本：3.0"
+    @label.text = "版本：%s" % [App.version]
     @label.sizeToFit
     @label.center = [self.view.frame.size.width / 2, self.view.frame.size.height / 2]
     @label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
