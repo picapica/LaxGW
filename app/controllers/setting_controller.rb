@@ -2,8 +2,8 @@ class SettingController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("Setting", image: nil, tag: 0)
-    self.title = "设置"
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("设置"._, image: nil, tag: 0)
+    self.title = "设置"._
     self
   end
 
@@ -11,9 +11,9 @@ class SettingController < UIViewController
     super
 
     dict = {
-      "save" => "保存",
-      "reload" => "恢复",
-      "clear" => "清空"
+      "save" => "保存"._,
+      "reload" => "恢复"._,
+      "clear" => "清空"._
     }
 
     self.view.backgroundColor = UIColor.whiteColor
@@ -21,21 +21,21 @@ class SettingController < UIViewController
     @defaults = NSUserDefaults.standardUserDefaults
 
     @label_setting = UILabel.alloc.initWithFrame(CGRectZero)
-    @label_setting.text = "帐号信息"
+    @label_setting.text = "帐号信息"._
     @label_setting.sizeToFit
     @label_setting.center = [self.view.frame.size.width / 2, 80]
     @label_setting.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
     self.view.addSubview(@label_setting)
 
     @name_field = UITextField.alloc.initWithFrame([[10,200],[self.view.frame.size.width * 0.8,30]])
-    @name_field.placeholder = "用户名"
+    @name_field.placeholder = "用户名"._
     @name_field.enablesReturnKeyAutomatically = true
     @name_field.text = @defaults[:login_name] || nil
     @name_field.center = [self.view.frame.size.width / 2, @label_setting.frame.origin.y + @label_setting.frame.size.height + 30]
     self.view.addSubview(@name_field)
 
     @password_field = UITextField.alloc.initWithFrame([[10,200],[self.view.frame.size.width * 0.8,30]])
-    @password_field.placeholder = "密码"
+    @password_field.placeholder = "密码"._
     @password_field.secureTextEntry = true
     @password_field.enablesReturnKeyAutomatically = true
     @password_field.text = @defaults[:login_password] || nil
