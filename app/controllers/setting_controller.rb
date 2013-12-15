@@ -42,13 +42,11 @@ class SettingController < UIViewController
     @password_field.center = [self.view.frame.size.width / 2, @label_setting.frame.origin.y + @label_setting.frame.size.height + 30 * 2]
     self.view.addSubview(@password_field)
 
-    ["save", "reload", "clear"].each_with_index do |action_text, index|
-      color = UIColor.send("blueColor")
-      button_width = (self.view.frame.size.width - 80) / 3
+    ["save", "clear"].each_with_index do |action_text, index|
+      button_width = (self.view.frame.size.width - 80) / 2
 
       button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
       button.setTitle(dict[action_text], forState:UIControlStateNormal)
-      button.setTitleColor(color, forState:UIControlStateNormal)
       button.sizeToFit
       button.frame = [
         [20 + index*(button_width + 10), @password_field.frame.origin.y + button.frame.size.height + 30 * 3],

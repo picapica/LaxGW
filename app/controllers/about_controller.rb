@@ -35,7 +35,7 @@ class AboutController < UIViewController
       "<br />" * 3,
       "对本APP的各种意见与建议",
       "以及无情的吐槽",
-      "请%s" % ['<a href="http://www.oiegg.com/" target="_new1">戳这里</a>'],
+      "请%s" % ['<a href="http://www.oiegg.com/forumdisplay.php?fid=190" target="_new1">戳这里</a>'],
       "",
       "对本程序猿的工作感兴趣的请%s" %['<a href="mailto:liulantao@gmail.com" target="_new2">戳这里</a>'],
       "（无节操码农接各种私活）",
