@@ -1,0 +1,37 @@
+"首页" = "Home";
+"检测" = "Check";
+"登入" = "Connect";
+"退出" = "Disconnect";
+"强制离线" = "Force Logout";
+"帐号" = "Username";
+"未设置" = "Not Set";
+"外网" = "Public IP";
+"正在监测" = "Checking";
+"已连接" = "Connected";
+"无线" = "Wifi";
+"外网地址" = "Public IP";
+"无外网IP" = "No public IP";
+
+"设置" = "Setting";
+"保存" = "Save";
+"恢复" = "Reload";
+"清空" = "Clear";
+"帐号信息" = "Account";
+"用户名" = "Username";
+"密码" = "Password";
+
+"关于" = "About";
+
+"About This App" = "<div align='center'><pre>
+
+BNUGW
+版本：%s
+
+
+对本APP的各种意见与建议
+以及无情的吐槽
+请<a href='%s' target='_new1'>戳这里</a>
+
+对本程序猿的工作感兴趣的请<a href='%s' target='_new2'>戳这里</a>
+（无节操码农接各种私活）
+</pre></div>";

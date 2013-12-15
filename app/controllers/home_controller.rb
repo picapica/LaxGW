@@ -2,8 +2,8 @@ class HomeController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("HOME", image: nil, tag: 0)
-    self.title = "首页"
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("首页"._, image: nil, tag: 0)
+    self.title = "首页"._
 
     self
   end
@@ -13,10 +13,10 @@ class HomeController < UIViewController
 
     @kvfmt = "%-10s\t%20s"
     @ops = {
-      :check => "检测",
-      :connect => "登入",
-      :disconnect => "退出",
-      :disconnect_all => "强制离线"
+      :check => "检测"._,
+      :connect => "登入"._,
+      :disconnect => "退出"._,
+      :disconnect_all => "强制离线"._
     }
     @ops_r = @ops.invert
 
@@ -33,9 +33,9 @@ class HomeController < UIViewController
 
     @data = []
     defaults = NSUserDefaults.standardUserDefaults
-    login_name_info = @kvfmt % ["帐号", defaults[:login_name] || '未设置']
+    login_name_info = @kvfmt % ["帐号"._, defaults[:login_name] || '未设置'._]
     @data[0] = login_name_info
-    @data[1] = @kvfmt % ["外网", "正在监测..."]
+    @data[1] = @kvfmt % ["外网"._, "正在监测..."._]
   end
 
   def viewDidAppear(animated)
@@ -58,7 +58,7 @@ class HomeController < UIViewController
     )
     cell.textLabel.text = @data[indexPath.row]
     cell.textLabel.textAlignment = UITextAlignmentCenter if @ops.values.include?(@data[indexPath.row])
-    if @data[indexPath.row] == "已连接"
+    if @data[indexPath.row] == "已连接"._
       cell.textLabel.textColor = UIColor.blueColor
       cell.textLabel.textAlignment = UITextAlignmentCenter
     end
@@ -110,14 +110,14 @@ class HomeController < UIViewController
     data = []
 
     defaults = NSUserDefaults.standardUserDefaults
-    login_name = defaults[:login_name] || '未设置'
-    login_name_info = @kvfmt % ["帐号", login_name]
+    login_name = defaults[:login_name] || '未设置'._
+    login_name_info = @kvfmt % ["帐号"._, login_name]
     data << login_name_info
 
     ifinfo = NetInterface.getInterfaceList
     ifinfo.each do |k, v|
       if k =~ /^en/
-        data << @kvfmt % [k.gsub(/^en/, '无线'), v]
+        data << @kvfmt % [k.gsub(/^en/, "无线"._), v]
       end
     end
 
@@ -135,10 +135,10 @@ class HomeController < UIViewController
       data << ""
 
       if conn_info and conn_info.body
-        data << "已连接"
-        data << @kvfmt % ["外网地址", conn_info.body.to_str.strip]
+        data << "已连接"._
+        data << @kvfmt % ["外网地址"._, conn_info.body.to_str.strip]
       else
-        data << "无外网IP"
+        data << "无外网IP"._
         #data << response.error_message
       end
       data << Time.now.to_s
