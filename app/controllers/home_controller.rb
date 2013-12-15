@@ -14,8 +14,9 @@ class HomeController < UIViewController
     @kvfmt = "%-10s\t%20s"
     @ops = {
       :check => "检测",
-      :connect => "登入网关",
-      :disconnect => "退出网关"
+      :connect => "登入",
+      :disconnect => "退出",
+      :disconnect_all => "强制离线"
     }
     @ops_r = @ops.invert
 
@@ -91,6 +92,13 @@ class HomeController < UIViewController
         sleep(3)
         updateTableInfo()
 
+      when :disconnect_all
+        defaults = NSUserDefaults.standardUserDefaults
+
+        GW.force_logout(defaults[:login_name], defaults[:login_password])
+        sleep(3)
+        updateTableInfo()
+
       else
         #puts "-%s-" % [op]
       end
@@ -115,6 +123,7 @@ class HomeController < UIViewController
 
     data << @ops[:connect]
     data << @ops[:disconnect]
+    data << @ops[:disconnect_all]
 
     @data = data
     @table.reloadData
