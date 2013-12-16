@@ -27,7 +27,7 @@ class AboutController < UIViewController
 
     textStr = "About This App"._ % [
       App.version,
-      'http://www.oiegg.com/forumdisplay.php?fid=190',
+      'http://www.oiegg.com/viewthread.php?tid=1703029&page=1',
       'mailto:liulantao@gmail.com'
     ]
 

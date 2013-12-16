@@ -3,7 +3,7 @@
 "登入" = "Connect";
 "退出" = "Disconnect";
 "强制离线" = "Force Logout";
-"帐号" = "Username";
+"帐号" = "User";
 "未设置" = "Not Set";
 "外网" = "Public IP";
 "正在监测" = "Checking";

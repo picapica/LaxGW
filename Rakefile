@@ -30,7 +30,7 @@ Motion::Project::App.setup do |app|
 
   app.development do
     app.version = "#{BNUGW_VERSION}-dev"
-    app.provisioning_profile = "#{ENV['PROVISION_DIR']}/BNUGW_AdHoc.mobileprovision"
+    app.provisioning_profile = "#{ENV['PROVISION_DIR']}/BNUGW_Development.mobileprovision"
   end
 
   app.release do

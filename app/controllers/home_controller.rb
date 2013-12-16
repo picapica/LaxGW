@@ -11,7 +11,7 @@ class HomeController < UIViewController
   def viewDidLoad
     super
 
-    @kvfmt = "%-10s\t%20s"
+    @kvfmt = "%-10s\t%-20s"
     @ops = {
       :check => "检测"._,
       :connect => "登入"._,
