@@ -11,7 +11,7 @@ class HomeController < UIViewController
   def viewDidLoad
     super
 
-    @kvfmt = "%-10s\t%-20s"
+    @kvfmt = "%-14s  %-20s"
     @ops = {
       :check => "检测"._,
       :connect => "登入"._,
@@ -131,8 +131,6 @@ class HomeController < UIViewController
     conn_info = nil
     BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3}) do |response|
       conn_info = response
-
-      data << ""
 
       if conn_info and conn_info.body
         data << "已连接"._

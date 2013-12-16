@@ -9,8 +9,8 @@ begin
 rescue LoadError
 end
 
-version = '3'
-timestamp = Time.now.strftime("%Y%m%d")
+version = '3.0.0'
+timestamp = Time.now.strftime("%Y%m%d.%H")
 
 if hash = `git show --format=%H -s` and hash.is_a?(String)
   hash = hash[1, 8]
@@ -18,7 +18,9 @@ else
   hash = 'u'
 end
 
-BNUGW_VERSION = "v%s-%s-%s" % [version, timestamp, hash]
+SHORT_VERSION = "%s " % [version]
+VERSION = "%s" % [timestamp]
+BNUGW_VERSION = "%s-%s-%s" % [version, timestamp, hash]
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
@@ -26,7 +28,10 @@ Motion::Project::App.setup do |app|
   app.identifier = "com.liulantao.BNUGW"
   app.deployment_target = "5.0"
   app.vendor_project('vendor/NetInterface', :static)
+
+  app.device_family = [:iphone, :ipad]
   app.interface_orientations = [:portrait]
+  app.icons = ["icon-1024.png", "icon-114.png", "icon-120.png", "icon-144.png", "icon-152.png", "icon-512.png", "icon-57.png", "icon-58.png", "icon-72.png", "icon-76.png"]
 
   app.development do
     app.version = "#{BNUGW_VERSION}-dev"
@@ -35,6 +40,8 @@ Motion::Project::App.setup do |app|
 
   app.release do
     app.version = "#{BNUGW_VERSION}"
+    app.info_plist['CFBundleShortVersionString'] = SHORT_VERSION
+    app.info_plist['CFBundleVersion'] = VERSION
     app.provisioning_profile = "#{ENV['PROVISION_DIR']}/BNUGW_AppStore.mobileprovision"
   end
 end
