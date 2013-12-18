@@ -33,6 +33,8 @@ class GW
         msg = response.body.to_str
         if (msg =~ /登录成功/)
           App.alert("登录成功")
+        elsif (msg =~ /logout_error/)
+          App.alert("已执行强制离线操作，请稍后重试连接")
         elsif (msg =~ /帐号的在线人数已达上限。/)
           App.alert("#{msg}请退出其它客户端或强制离线。")
         else
