@@ -10,13 +10,10 @@ class SettingController < UIViewController
   def viewDidLoad
     super
 
-    dict = {
-      "save" => "保存"._,
-      "reload" => "恢复"._,
-      "clear" => "清空"._
-    }
-
     self.view.backgroundColor = UIColor.whiteColor
+
+    @right_button = UIBarButtonItem.alloc.initWithTitle("保存"._, style: UIBarButtonItemStyleBordered, target:self, action:'tap_save')
+    self.navigationItem.rightBarButtonItem = @right_button
 
     @defaults = NSUserDefaults.standardUserDefaults
 
@@ -41,21 +38,6 @@ class SettingController < UIViewController
     @password_field.text = @defaults[:login_password] || nil
     @password_field.center = [self.view.frame.size.width / 2, @label_setting.frame.origin.y + @label_setting.frame.size.height + 30 * 2]
     self.view.addSubview(@password_field)
-
-    ["save", "clear"].each_with_index do |action_text, index|
-      button_width = (self.view.frame.size.width - 80) / 2
-
-      button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-      button.setTitle(dict[action_text], forState:UIControlStateNormal)
-      button.sizeToFit
-      button.frame = [
-        [20 + index*(button_width + 10), @password_field.frame.origin.y + button.frame.size.height + 30 * 3],
-        [button_width, button.frame.size.height]
-      ]
-      button.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
-      button.addTarget(self, action:"tap_#{action_text}", forControlEvents:UIControlEventTouchUpInside)
-      self.view.addSubview(button)
-    end
   end
 
   def tap_save

@@ -33,9 +33,9 @@ class HomeController < UIViewController
 
     @data = []
     defaults = NSUserDefaults.standardUserDefaults
-    login_name_info = @kvfmt % ["帐号"._, defaults[:login_name] || '未设置'._]
-    @data[0] = login_name_info
+    @data[0] = @kvfmt % ["帐号"._, defaults[:login_name] || '未设置'._]
     @data[1] = @kvfmt % ["外网"._, "正在监测..."._]
+
   end
 
   def viewDidAppear(animated)
