@@ -10,6 +10,9 @@ class AppDelegate
     setting_controller = SettingController.alloc.initWithNibName(nil, bundle: nil)
     setting_nav_controller = UINavigationController.alloc.initWithRootViewController(setting_controller)
 
+    #net_utils_controller = NetUtilsController.alloc.initWithNibName(nil, bundle: nil)
+    #net_utils_nav_controller = UINavigationController.alloc.initWithRootViewController(net_utils_controller)
+
     tab_controller = UITabBarController.alloc.initWithNibName(nil, bundle:nil)
     tab_controller.viewControllers = [home_nav_controller, setting_nav_controller, about_nav_controller]
 

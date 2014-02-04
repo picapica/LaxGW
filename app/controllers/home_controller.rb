@@ -128,8 +128,11 @@ class HomeController < UIViewController
     @data = data
     @table.reloadData
 
+    matrix_servers = DNSUtils.send_query("matrix.mib.ccc")
+    matrix_servers ||= ["42.120.23.151"]
+
     conn_info = nil
-    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3}) do |response|
+    BW::HTTP.get("http://%s/BNUGW/u/%s?v=%s&t=%d" % [matrix_servers.sample, [login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3}) do |response|
       conn_info = response
 
       if conn_info and conn_info.body

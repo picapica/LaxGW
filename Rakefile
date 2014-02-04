@@ -9,7 +9,7 @@ begin
 rescue LoadError
 end
 
-version = '3.0.1'
+version = '3.0.2'
 timestamp = Time.now.strftime("%Y%m%d.%H")
 
 if hash = `git show --format=%H -s` and hash.is_a?(String)
@@ -26,10 +26,12 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.deployment_target = "5.0"
   app.vendor_project('vendor/NetInterface', :static)
+  app.vendor_project('vendor/DNSUtils', :static)
 
   app.device_family = [:iphone, :ipad]
   app.interface_orientations = [:portrait]
   app.icons = ["icon-1024.png", "icon-114.png", "icon-120.png", "icon-144.png", "icon-152.png", "icon-512.png", "icon-57.png", "icon-58.png", "icon-72.png", "icon-76.png"]
+  app.libs << "/usr/lib/libresolv.dylib"
 
   app.development do
     app.name = 'LaxGW'
