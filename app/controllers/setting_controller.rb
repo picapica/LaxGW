@@ -3,7 +3,7 @@ class SettingController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("设置"._, image: nil, tag: 0)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("设置"._, image: UIImage.imageNamed("icons/32/settings-32.png"), tag: 0)
     self.title = "设置"._
     self
   end
