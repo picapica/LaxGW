@@ -37,7 +37,7 @@ Motion::Project::App.setup do |app|
     app.name = 'LaxGW'
     app.identifier = "com.liulantao.LaxGW"
     app.version = "#{BNUGW_VERSION}-dev"
-    app.provisioning_profile = "#{ENV['PROVISION_DIR']}/BNUGW_Development.mobileprovision"
+    app.provisioning_profile = "#{ENV['PROVISION_DIR'] || './mobileprovision'}/BNUGW_Development.mobileprovision"
   end
 
   app.release do
@@ -46,6 +46,6 @@ Motion::Project::App.setup do |app|
     app.version = "#{BNUGW_VERSION}"
     app.info_plist['CFBundleShortVersionString'] = SHORT_VERSION
     app.info_plist['CFBundleVersion'] = VERSION
-    app.provisioning_profile = "#{ENV['PROVISION_DIR']}/BNUGW_AppStore.mobileprovision"
+    app.provisioning_profile = "#{ENV['PROVISION_DIR'] || './mobileprovision'}/BNUGW_AppStore.mobileprovision"
   end
 end

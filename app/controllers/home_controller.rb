@@ -2,7 +2,7 @@ class HomeController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("首页"._, image: nil, tag: 0)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("首页"._, image: UIImage.imageNamed("icons/32/home-32.png"), tag: 0)
     self.title = "首页"._
 
     self
@@ -128,7 +128,7 @@ class HomeController < UIViewController
     @data = data
     @table.reloadData
 
-    matrix_servers = DNSUtils.send_query("matrix.mib.ccc")
+    matrix_servers = DNSUtils.send_query("matrix.mib.cc")
     matrix_servers ||= ["42.120.23.151"]
 
     conn_info = nil

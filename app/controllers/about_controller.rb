@@ -2,7 +2,7 @@ class AboutController < UIViewController
 
   def initWithNibName(name, bundle: bundle)
     super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("关于"._, image: nil, tag: 0)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle("关于"._, image: UIImage.imageNamed("icons/32/info-32.png"), tag: 0)
     self.title = "关于"._
     self
   end
