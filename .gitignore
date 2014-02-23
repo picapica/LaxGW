@@ -18,3 +18,4 @@ vendor/**/*.m.o
 vendor/**/*.pch
 vendor/**/*.a
 vendor/**/*.bridgesupport
+mobileprovision
