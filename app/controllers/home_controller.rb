@@ -129,7 +129,7 @@ class HomeController < UIViewController
     @table.reloadData
 
     conn_info = nil
-    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3}) do |response|
+    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3, :allows_cellular_access => false}) do |response|
       conn_info = response
 
       if conn_info and conn_info.body

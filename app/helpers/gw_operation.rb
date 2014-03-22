@@ -20,7 +20,7 @@ class GW
   end
 
   def self.fire_get(url)
-    BW::HTTP.get(url) do |response|
+    BW::HTTP.get(url, {allows_cellular_access: false}) do |response|
       if response and response.body
         App.alert(response.body.to_str)
       end
@@ -28,7 +28,7 @@ class GW
   end
 
   def self.fire_post(url, data)
-    BW::HTTP.post(url, {payload: data}) do |response|
+    BW::HTTP.post(url, {payload: data, allows_cellular_access: false}) do |response|
       if response.ok?
         msg = response.body.to_str
         if (msg =~ /登录成功/)
