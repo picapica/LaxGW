@@ -35,7 +35,7 @@ class HomeController < UIViewController
     @defaults ||= NSUserDefaults.standardUserDefaults
     @data[0] = @kvfmt % ["帐号"._, @defaults[:login_name] || '未设置'._]
     @data[1] = @kvfmt % ["外网"._, "正在监测..."._]
-    @data[2] = @kvfmt % ["允许蜂窝网络"._, @defaults[:allows_cellular_access] ? "是" : "否"]
+    @data[2] = @kvfmt % ["允许蜂窝网络"._, @defaults[:allows_cellular_access] ? "是"._ : "否"._]
 
   end
 
@@ -115,7 +115,7 @@ class HomeController < UIViewController
       end
     end
 
-    data << @kvfmt % ["允许蜂窝网络"._, @defaults[:allows_cellular_access] ? "是" : "否"]
+    data << @kvfmt % ["允许蜂窝网络"._, @defaults[:allows_cellular_access] ? "是"._ : "否"._]
 
     data << @ops[:connect]
     data << @ops[:disconnect]

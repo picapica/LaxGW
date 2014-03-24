@@ -17,7 +17,10 @@
 "帐号信息" = "Account";
 "用户名" = "Username";
 "密码" = "Password";
-"允许蜂窝网络"._ = "Allows Cellular Access";
+"允许蜂窝网络" = "Allows Cellular Access";
+
+"是" = "Yes";
+"否" = "No";
 
 "关于" = "About";
 
