@@ -9,7 +9,7 @@ begin
 rescue LoadError
 end
 
-version = '3.0.1'
+version = '3.0.2'
 timestamp = Time.now.strftime("%Y%m%d.%H")
 
 if hash = `git show --format=%H -s` and hash.is_a?(String)
