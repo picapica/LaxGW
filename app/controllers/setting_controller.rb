@@ -14,7 +14,8 @@ class SettingController < UIViewController
     @config_keys = {
       :title => "帐号信息"._,
       :login_name => "用户名"._,
-      :login_password => "密码"._
+      :login_password => "密码"._,
+      :allows_cellular_access => "允许蜂窝网络"._
     }
 
     self.view.backgroundColor = UIColor.whiteColor
@@ -58,8 +59,14 @@ class SettingController < UIViewController
     when :title
       cell.textLabel.text = @config_keys[key]
       cell.textLabel.textAlignment = UITextAlignmentCenter
+    when :allows_cellular_access
+      cell.textLabel.text = @config_keys[key]
+      cell.textLabel.textAlignment = UITextAlignmentCenter
+      cell.accessoryView ||= UISwitch.new
+      cell.accessoryView.setOn(@defaults[key] ? @defaults[key] : true, animated:false)
+      instance_variable_set("@switch_#{key}", cell.accessoryView)
     else
-      field = UITextField.alloc.initWithFrame([[10,200],[self.view.frame.size.width * 0.8,30]])
+      field ||= UITextField.alloc.initWithFrame([[10,200],[self.view.frame.size.width * 0.8,30]])
       field.placeholder = @config_keys[key]
       field.secureTextEntry = true if key == :login_password
       field.enablesReturnKeyAutomatically = true
@@ -78,8 +85,10 @@ class SettingController < UIViewController
   def tap_save
     username = @field_login_name.text
     password = @field_login_password.text
+    allow_cellular = @switch_allows_cellular_access.isOn
     @defaults[:login_name] = username if username
     @defaults[:login_password] = password if password
+    @defaults[:allows_cellular_access] = allow_cellular
     @field_login_name.resignFirstResponder
     @field_login_password.resignFirstResponder
   end

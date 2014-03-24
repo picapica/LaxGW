@@ -17,6 +17,7 @@
 "帐号信息" = "Account";
 "用户名" = "Username";
 "密码" = "Password";
+"允许蜂窝网络"._ = "Allows Cellular Access";
 
 "关于" = "About";
 

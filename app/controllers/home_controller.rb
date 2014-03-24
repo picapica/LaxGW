@@ -32,9 +32,10 @@ class HomeController < UIViewController
     @table.delegate = self
 
     @data = []
-    defaults = NSUserDefaults.standardUserDefaults
-    @data[0] = @kvfmt % ["帐号"._, defaults[:login_name] || '未设置'._]
+    @defaults ||= NSUserDefaults.standardUserDefaults
+    @data[0] = @kvfmt % ["帐号"._, @defaults[:login_name] || '未设置'._]
     @data[1] = @kvfmt % ["外网"._, "正在监测..."._]
+    @data[2] = @kvfmt % ["允许蜂窝网络"._, @defaults[:allows_cellular_access] ? "是" : "否"]
 
   end
 
@@ -79,23 +80,17 @@ class HomeController < UIViewController
         updateTableInfo()
 
       when :connect
-        defaults = NSUserDefaults.standardUserDefaults
-
-        GW.login(defaults[:login_name], defaults[:login_password])
+        GW.login(@defaults[:login_name], @defaults[:login_password], (@defaults[:allows_cellular_access] ? true : false))
         sleep(1)
         updateTableInfo()
 
       when :disconnect
-        defaults = NSUserDefaults.standardUserDefaults
-
-        GW.logout(defaults[:login_name], defaults[:login_password])
+        GW.logout(@defaults[:login_name], @defaults[:login_password], (@defaults[:allows_cellular_access] ? true : false))
         sleep(3)
         updateTableInfo()
 
       when :disconnect_all
-        defaults = NSUserDefaults.standardUserDefaults
-
-        GW.force_logout(defaults[:login_name], defaults[:login_password])
+        GW.force_logout(@defaults[:login_name], @defaults[:login_password], (@defaults[:allows_cellular_access] ? true : false))
         sleep(3)
         updateTableInfo()
 
@@ -109,8 +104,7 @@ class HomeController < UIViewController
   def updateTableInfo()
     data = []
 
-    defaults = NSUserDefaults.standardUserDefaults
-    login_name = defaults[:login_name] || '未设置'._
+    login_name = @defaults[:login_name] || '未设置'._
     login_name_info = @kvfmt % ["帐号"._, login_name]
     data << login_name_info
 
@@ -121,6 +115,8 @@ class HomeController < UIViewController
       end
     end
 
+    data << @kvfmt % ["允许蜂窝网络"._, @defaults[:allows_cellular_access] ? "是" : "否"]
+
     data << @ops[:connect]
     data << @ops[:disconnect]
     data << @ops[:disconnect_all]
@@ -129,7 +125,7 @@ class HomeController < UIViewController
     @table.reloadData
 
     conn_info = nil
-    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3, :allows_cellular_access => false}) do |response|
+    BW::HTTP.get("http://42.120.23.151/BNUGW/u/%s?v=%s&t=%d" % [[login_name].pack('m0'), App.version, Time.now.to_i], {:timeout => 3, :allows_cellular_access => (@defaults[:allows_cellular_access] ? true : false)}) do |response|
       conn_info = response
 
       if conn_info and conn_info.body
