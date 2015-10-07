@@ -30,6 +30,8 @@ Motion::Project::App.setup do |app|
   app.interface_orientations = [:portrait]
   app.icons = ["icon-1024.png", "icon-114.png", "icon-120.png", "icon-144.png", "icon-152.png", "icon-512.png", "icon-57.png", "icon-58.png", "icon-72.png", "icon-76.png"]
 
+  app.info_plist['NSAppTransportSecurity'] = {"NSAllowsArbitraryLoads" => true}
+
   app.development do
     app.name = 'LaxGW'
     app.identifier = "com.liulantao.LaxGW"
