@@ -27,8 +27,9 @@ class AboutController < UIViewController
 
     textStr = "About This App"._ % [
       App.version,
-      'http://www.oiegg.com/viewthread.php?tid=1703029&page=1',
-      'mailto:liulantao@gmail.com'
+      'https://github.com/picapica/LaxGW/issues',
+      'http://www.weibo.com/u/1653644220',
+      'mailto:liulantao+bnu@gmail.com'
     ]
 
     @webView.loadHTMLString(textStr, baseURL: nil)
