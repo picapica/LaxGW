@@ -8,7 +8,7 @@ begin
 rescue LoadError
 end
 
-version = '4.0.0'
+version = '4.0.2'
 timestamp = Time.now.strftime("%Y%m%d.%H")
 
 if hash = `git show --format=%H -s` and hash.is_a?(String)
@@ -35,8 +35,8 @@ Motion::Project::App.setup do |app|
   app.info_plist['UIRequiresFullScreen'] = true
 
   app.development do
-    app.name = 'LaxGW'
-    app.identifier = "com.liulantao.LaxGW"
+    app.name = 'BNUGW'
+    app.identifier = "com.liulantao.BNUGW"
     app.version = "#{BNUGW_VERSION}-dev"
     app.provisioning_profile = "#{ENV['PROVISION_DIR'] || './mobileprovision'}/BNUGW_Development.mobileprovision"
   end
