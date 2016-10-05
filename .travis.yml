@@ -1,10 +1,12 @@
 language: objective-c
+osx_image: xcode8
 branches:
   only:
     - master
     - release
     - travis
 before_install:
+  - rvm use 2.2.4 --install --binary --fuzzy
   - (ruby --version)
   - sudo motion update
 gemfile:
